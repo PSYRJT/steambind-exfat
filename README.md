@@ -37,6 +37,8 @@ cd steam-exfat-bind
 chmod +x steambind.sh
 ```
 
+### 2.5. Replace yourusername and yourSSD with own names
+
 ### 3. Optional: Add alias (Fish shell example)
 
 Edit `~/.config/fish/config.fish`:
