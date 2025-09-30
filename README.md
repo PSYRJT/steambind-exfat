@@ -100,8 +100,13 @@ Credit appreciated but not required ✌️
 
 ---
 
-## 💡 Future Improvements
+## 🤝 Contributing
 
-* Auto-detect SSD partition by label (no `/dev/sdX` guesswork)
-* Systemd unit for fully automated bind after mount
-* Support for multiple external Steam libraries
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Ideas for improvements:
+- [ ] GUI version
+- [ ] Automatic detection of when drive is connected
+- [ ] Integration with GNOME/KDE
+- [ ] Support for multiple external drives simultaneously
+- [ ] Automatic backup of compatdata
