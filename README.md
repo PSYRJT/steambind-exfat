@@ -27,7 +27,7 @@ Instead, it redirects all Proton prefixes into your Linux home (Btrfs/Ext4/etc.)
 
 ### 1. Clone repo
 ```bash
-git clone https://github.com/<your-username>/steam-exfat-bind.git
+git clone https://github.com/PSYRJT/steam-exfat-bind.git
 cd steam-exfat-bind
 ````
 
@@ -62,6 +62,7 @@ udisksctl mount -b /dev/sdX1
 ```
 
 *(replace `/dev/sdX1` with your SSD partition — e.g. `/dev/sdb1`)*
+or just mount using DE file manager
 
 2. Run the bind script:
 
