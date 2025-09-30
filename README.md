@@ -105,12 +105,3 @@ Credit appreciated but not required ✌️
 * Auto-detect SSD partition by label (no `/dev/sdX` guesswork)
 * Systemd unit for fully automated bind after mount
 * Support for multiple external Steam libraries
-
-```
-
----
-
-This is already pretty GitHub-polished. You just need to replace `<your-username>` with your actual GitHub handle in the clone link.  
-
-Want me to also create a **`steambind.service` example** (systemd unit) for “future improvements” so people can optionally automate it, or keep it manual?
-```
