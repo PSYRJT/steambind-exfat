@@ -99,14 +99,10 @@ MIT License. Do whatever you want with it.
 Credit appreciated but not required ✌️
 
 ---
+🙏 Acknowledgements
 
-## 🤝 Contributing
+I don’t have real coding skills — this script is the result of a lot of trial, error, and help from ChatGPT.
+It’s the closest solution I’ve found that actually works for running Steam Proton games from an exFAT external SSD.
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### Ideas for improvements:
-- [ ] GUI version
-- [ ] Automatic detection of when drive is connected
-- [ ] Integration with GNOME/KDE
-- [ ] Support for multiple external drives simultaneously
-- [ ] Automatic backup of compatdata
+If you do have real coding skills and can improve this project, please feel free to make a pull request.
+Things like auto-detecting SSDs, a GUI solution, handling multiple libraries, or making it more “plug-and-play” would be amazing.
