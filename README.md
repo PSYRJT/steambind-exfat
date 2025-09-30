@@ -1,4 +1,3 @@
-````markdown
 # Steam ExFAT Bind
 
 Run Steam games directly from an **exFAT external SSD** on Linux with Proton support.  
