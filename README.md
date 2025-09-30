@@ -1,7 +1,3 @@
-Got it — here’s a **clean GitHub-style `README.md`** for your project. I’ll write it as if you’re publishing a little utility called **Steam ExFAT Bind**.
-
----
-
 ````markdown
 # Steam ExFAT Bind
 
