@@ -1,4 +1,4 @@
-# Steam ExFAT Bind
+# Steam exFAT Bind
 
 Run Steam games directly from an **exFAT external SSD** on Linux with Proton support.  
 This script solves the issue where Steam can’t create `compatdata` (Proton prefixes) on exFAT because it doesn’t support Linux symlinks or permissions.
