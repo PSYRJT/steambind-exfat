@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-USER="psyrjt"
-SSD_LABEL="Next Step"
+USER="yourusername"
+SSD_LABEL="yourSSD"
 SSD_MOUNTPOINT="/run/media/$USER/$SSD_LABEL"
 SSD_STEAMAPPS="$SSD_MOUNTPOINT/SteamLibrary/steamapps"
 PREFIX_HOME="/home/$USER/SteamPrefixes/compatdata"
