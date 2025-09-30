@@ -1,129 +1,120 @@
-# Steam exFAT Bind Mount Helper
-
-> **Play Steam games from exFAT external drives on Linux**
-
-A simple script that enables Steam's Proton compatibility layer to work properly with games installed on exFAT-formatted external drives.
-
-## 🎮 The Problem
-
-Steam's Proton (Wine compatibility layer) requires:
-- Symbolic links
-- Proper UNIX permissions
-- Extended attributes
-
-**exFAT doesn't support any of these**, causing games to fail with errors like:
-- "Failed to create Wine prefix"
-- "Unable to initialize Steam API"
-- Games refusing to launch
-
-## ✨ The Solution
-
-This script creates a **bind mount** that redirects the `compatdata` directory (Wine prefixes) from your exFAT drive to your internal Linux drive, while keeping game files on the external drive.
-
-### Benefits:
-- ✅ Keep large game files on external drive
-- ✅ Proton prefixes work properly on internal drive
-- ✅ No need to reformat to ext4/NTFS
-- ✅ Portable - works across distributions
-- ✅ Safe - no data loss, easily reversible
-
-## 📋 Requirements
-
-- Linux (any distribution)
-- Steam installed
-- `sudo` privileges
-- `rsync` installed (usually pre-installed)
-
-## 🚀 Quick Start
-
-### 1. Download the script
-
-```bash
-git clone https://github.com/PSYRJT/steam-exfat-bind.git
-cd steam-exfat-bind
-chmod +x steam-exfat-bind.sh
-```
-
-### 2. Run the script
-
-```bash
-./steam-exfat-bind.sh
-```
-
-The script will:
-- Auto-detect your external Steam library
-- Create a prefix storage location
-- Set up the bind mount
-- Merge any existing compatdata
-
-### 3. Launch Steam
-
-That's it! Launch Steam and your games should now work properly.
-
-## 📖 Usage
-
-1. Edit the .sh file and replace yourusername and yourSSD with own names.
-2. Mount SSD
-3. Run script
-4. Must be re-run every restart and every remount
-
-
-## 🔧 How It Works
-
-```
-Before:
-External Drive (exFAT)
-└── SteamLibrary/
-    └── steamapps/
-        ├── common/         (game files - stays here)
-        └── compatdata/     (Wine prefixes - doesn't work on exFAT)
-
-After:
-External Drive (exFAT)
-└── SteamLibrary/
-    └── steamapps/
-        ├── common/         (game files)
-        └── compatdata/  ──→ [bind mounted to internal drive]
-
-Internal Drive (ext4)
-└── ~/SteamPrefixes/
-    └── compatdata/         (actual Wine prefixes stored here)
-```
-
-## 🐛 Troubleshooting
-
-### "SSD not mounted" error
-Make sure your external drive is actually mounted before running the script.
-
-### Permission issues
-The script requires `sudo` to create bind mounts. Make sure you have sudo privileges.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### Ideas for improvements:
-- [ ] GUI version
-- [ ] Automatic detection of when drive is connected
-- [ ] Integration with GNOME/KDE
-- [ ] Support for multiple external drives simultaneously
-- [ ] Automatic backup of compatdata
-
-## 📝 License
-
-MIT License - see [LICENSE](LICENSE) file for details
-
-## 🙏 Credits
-
-- Created by psyrjt (and ChatGPT)
-- Inspired by the Linux gaming community
-
-## ⚠️ Disclaimer
-
-This script modifies system mounts. While safe when used correctly, always backup important data. The authors are not responsible for any data loss.
+Got it — here’s a **clean GitHub-style `README.md`** for your project. I’ll write it as if you’re publishing a little utility called **Steam ExFAT Bind**.
 
 ---
 
-**Found this helpful?** Give it a ⭐ on GitHub!
+````markdown
+# Steam ExFAT Bind
 
-**Having issues?** Open an issue and we'll help you out.
+Run Steam games directly from an **exFAT external SSD** on Linux with Proton support.  
+This script solves the issue where Steam can’t create `compatdata` (Proton prefixes) on exFAT because it doesn’t support Linux symlinks or permissions.
+
+Instead, it redirects all Proton prefixes into your Linux home (Btrfs/Ext4/etc.) and bind-mounts them back into the SSD’s `SteamLibrary` so Steam sees everything as native.
+
+---
+
+## 🚀 Features
+- Works with **exFAT SSDs** shared between Linux, Windows, and macOS  
+- Keeps Proton prefixes (`compatdata`) safe in your Linux home  
+- Seamless Steam integration — games run as if installed natively  
+- Avoids “Device or resource busy” errors  
+- Plug-and-play style: run one command after mounting your SSD  
+
+---
+
+## 📦 Requirements
+- Linux (tested on Arch / CachyOS, should work on most distros)  
+- `rsync` and `udisks2` (usually preinstalled)  
+- Steam installed with Proton enabled  
+
+---
+
+## ⚙️ Setup
+
+### 1. Clone repo
+```bash
+git clone https://github.com/<your-username>/steam-exfat-bind.git
+cd steam-exfat-bind
+````
+
+### 2. Make script executable
+
+```bash
+chmod +x steambind.sh
+```
+
+### 3. Optional: Add alias (Fish shell example)
+
+Edit `~/.config/fish/config.fish`:
+
+```fish
+alias steambind="~/steam-exfat-bind/steambind.sh"
+```
+
+Reload config:
+
+```fish
+source ~/.config/fish/config.fish
+```
+
+---
+
+## 🖥️ Usage
+
+1. Mount your SSD (exFAT won’t auto-mount on some distros):
+
+```bash
+udisksctl mount -b /dev/sdX1
+```
+
+*(replace `/dev/sdX1` with your SSD partition — e.g. `/dev/sdb1`)*
+
+2. Run the bind script:
+
+```bash
+steambind
+```
+
+---
+
+## 🔍 How It Works
+
+* Proton prefixes (`compatdata`) normally live inside each Steam library.
+* exFAT cannot handle symlinks/permissions, so Steam fails.
+* This script:
+
+  1. Creates a safe prefix folder inside Linux home (`~/SteamPrefixes/compatdata`)
+  2. Moves/merges any existing compatdata into it
+  3. Empty-cleans SSD’s `compatdata` folder
+  4. Bind-mounts the home folder back into the SSD so Steam is happy
+
+---
+
+## 🛠️ Troubleshooting
+
+* **Game won’t launch after reboot** → Just re-run `steambind` after mounting the SSD.
+* **Steam still crashes** → Ensure no leftover `compatdata` on SSD, clear it and retry.
+* **SSD not auto-detected** → Use `lsblk` to check the partition and mount manually with `udisksctl`.
+
+---
+
+## 📜 License
+
+MIT License. Do whatever you want with it.
+Credit appreciated but not required ✌️
+
+---
+
+## 💡 Future Improvements
+
+* Auto-detect SSD partition by label (no `/dev/sdX` guesswork)
+* Systemd unit for fully automated bind after mount
+* Support for multiple external Steam libraries
+
+```
+
+---
+
+This is already pretty GitHub-polished. You just need to replace `<your-username>` with your actual GitHub handle in the clone link.  
+
+Want me to also create a **`steambind.service` example** (systemd unit) for “future improvements” so people can optionally automate it, or keep it manual?
+```
