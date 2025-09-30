@@ -39,7 +39,7 @@ This script creates a **bind mount** that redirects the `compatdata` directory (
 ### 1. Download the script
 
 ```bash
-git clone https://github.com/yourusername/steam-exfat-bind.git
+git clone https://github.com/PSYRJT/steam-exfat-bind.git
 cd steam-exfat-bind
 chmod +x steam-exfat-bind.sh
 ```
@@ -62,61 +62,11 @@ That's it! Launch Steam and your games should now work properly.
 
 ## 📖 Usage
 
-### Basic usage (auto-detect)
-```bash
-./steam-exfat-bind.sh
-```
+1. Edit the .sh file and replace yourusername and yourSSD with own names.
+2. Mount SSD
+3. Run script
+4. Must be re-run every restart and every remount
 
-### Specify drive manually
-```bash
-./steam-exfat-bind.sh -d /run/media/username/GameDrive
-```
-
-### Custom prefix location
-```bash
-./steam-exfat-bind.sh -d /mnt/games -p ~/MyPrefixes
-```
-
-### Unmount all binds
-```bash
-./steam-exfat-bind.sh -u
-```
-
-### Show help
-```bash
-./steam-exfat-bind.sh -h
-```
-
-## ⚙️ Automatic Setup (systemd)
-
-To automatically mount on boot/login:
-
-### 1. Create systemd service file
-
-Create `/etc/systemd/system/steam-exfat-bind@.service`:
-
-```ini
-[Unit]
-Description=Steam exFAT Bind Mount for %i
-After=local-fs.target
-
-[Service]
-Type=oneshot
-User=%i
-ExecStart=/path/to/steam-exfat-bind.sh
-RemainAfterExit=yes
-ExecStop=/path/to/steam-exfat-bind.sh -u
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### 2. Enable the service
-
-```bash
-sudo systemctl enable steam-exfat-bind@$USER.service
-sudo systemctl start steam-exfat-bind@$USER.service
-```
 
 ## 🔧 How It Works
 
@@ -145,16 +95,8 @@ Internal Drive (ext4)
 ### "SSD not mounted" error
 Make sure your external drive is actually mounted before running the script.
 
-### Games still won't launch
-1. Try removing the game's compatdata folder: `rm -rf ~/SteamPrefixes/compatdata/<AppID>`
-2. Verify Steam in the game
-3. Relaunch the game
-
 ### Permission issues
 The script requires `sudo` to create bind mounts. Make sure you have sudo privileges.
-
-### Unmount before ejecting
-Always run `./steam-exfat-bind.sh -u` before ejecting your external drive.
 
 ## 🤝 Contributing
 
@@ -173,9 +115,8 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## 🙏 Credits
 
-- Created by psyrjt
+- Created by psyrjt (and ChatGPT)
 - Inspired by the Linux gaming community
-- Thanks to everyone who reported issues and suggested improvements
 
 ## ⚠️ Disclaimer
 
