@@ -1,5 +1,4 @@
 ![Stars](https://img.shields.io/github/stars/PSYRJT/steambind-exfat?style=social) ![Forks](https://img.shields.io/github/forks/PSYRJT/steambind-exfat) ![License](https://img.shields.io/github/license/PSYRJT/steambind-exfat)
-![Shell Lint](https://github.com/PSYRJT/steambind-exfat/actions/workflows/shell.yml/badge.svg)
 
 > Run Steam Proton games from exFAT SSDs on Linux — seamlessly!
 
