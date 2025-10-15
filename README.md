@@ -35,7 +35,7 @@ Instead, it redirects all Proton prefixes into your Linux home (Btrfs/Ext4/etc.)
 ## 📦 Requirements
 
 - • Linux (tested on Arch / CachyOS, should work on most distros)
-- • `rsync` and `udisks2` (usually preinstalled)
+- • `rsync` and `udisks2` (usually preinstalled); for GUI: `zenity`
 - • Steam installed with Proton enabled
 
 ## ⚙️ Setup
@@ -80,21 +80,42 @@ udisksctl mount -b /dev/sdX1
 (replace `/dev/sdX1` with your SSD partition — e.g. `/dev/sdb1`)
 *or just mount using DE file manager
 
-2. Run the bind script:
+2. Run the bind script (CLI):
 
 ```bash
 steambind
 ```
+
+3. Optional GUI:
+
+```bash
+./steambind-gui.sh
+```
+
+The GUI lets you bind, unbind, or dry-run, and optionally pick a Steam library path. If not specified, the script auto-detects common library locations like `/run/media/$USER/*/SteamLibrary/steamapps`.
 
 ## 🔍 How It Works
 
 - • Proton prefixes (`compatdata`) normally live inside each Steam library.
 - • exFAT cannot handle symlinks/permissions, so Steam fails.
 - • This script:
-  - i. Creates a safe prefix folder inside Linux home (`~/SteamPrefixes/compatdata`)
-  - ii. Moves/merges any existing compatdata into it
-  - iii. Empty-cleans SSD's `compatdata` folder
+  - i. Creates a safe prefix folder inside Linux home (`~/SteamPrefixes/compatdata` by default; configurable via `--prefix`)
+  - ii. Moves/merges any existing compatdata into it (preserving existing files in home)
+  - iii. Cleans the SSD's `compatdata` folder (empties contents)
   - iv. Bind-mounts the home folder back into the SSD so Steam is happy
+
+### CLI options (advanced)
+
+```bash
+./steambind.sh [--library PATH] [--prefix PATH] [--unbind] [-n|--dry-run]
+```
+
+- `--library PATH`: path to `steamapps` directory (auto-detected if omitted)
+- `--prefix PATH`: compatdata storage in Linux file system (default `~/SteamPrefixes/compatdata`)
+- `--unbind`: unmount the bind at `steamapps/compatdata` (no data loss)
+- `-n, --dry-run`: show actions without changing anything
+
+Environment variables: `STEAM_LIBRARY`, `STEAM_PREFIX_HOME`.
 
 ## 🛠️ Troubleshooting
 
